@@ -14,13 +14,13 @@ python web_app.pyを実行
 - 句読点挿入のロジック
 
 全体像
-> ユーザーの入力テキスト
->     ↓
-> OpenAI API / Azure OpenAI API に送信
->     ↓
-> LLM（大規模言語モデル）が文章を生成
->     ↓
-> 生成された文章を返す
+> ユーザーの入力テキスト  
+>     ↓  
+> OpenAI API / Azure OpenAI API に送信  
+>     ↓  
+> LLM（大規模言語モデル）が文章を生成  
+>     ↓  
+> 生成された文章を返す  
 
 ファイル
 1. main.py - 
