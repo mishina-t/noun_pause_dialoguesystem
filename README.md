@@ -23,13 +23,13 @@ python web_app.pyを実行
 > 生成された文章を返す  
 
 ファイル
-1. main.py - 
-2. llm.py - 文章生成
+1. main.py - アプリっぽくするために必要
+2. llm.py - API呼び出し & 文章生成
 3. text_processor.py - 名詞前に読点を入れる
 4. tts.py - voicevoxを用いた音声合成
 5. config.py - 設定管理
-6. .env - 環境変数
-7. ui.py - UI表示
+6. .env - 環境変数(APIキーなど)
+7. ui.py - UI表示(AI全任せ)
 
 前提
 - UI関連(HTML)はAIに任せたので理解できていない、今後改善したい
@@ -115,17 +115,17 @@ def respond(self, user_text: str) -> tuple[str, float]:
 名詞を抽出してその前に句点を入れた
 
 全体像
-> 生成された文章
->     ↓
-> 文単位に分割（。！？で分割）
->     ↓
-> 各文を形態素解析（単語に分解）
->     ↓
-> 名詞を検出
->     ↓
-> 名詞の直前に「、」を挿入
->     ↓
-> 処理済みの文章
+> 生成された文章  
+>     ↓  
+> 文単位に分割（。！？で分割）  
+>     ↓  
+> 各文を形態素解析（単語に分解）  
+>     ↓  
+> 名詞を検出  
+>     ↓  
+> 名詞の直前に「、」を挿入  
+>     ↓  
+> 処理済みの文章  
 
 ```python
 def __init__(self, pause_marker: str = "、", max_pauses_per_sentence: int = 3):
