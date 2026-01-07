@@ -1,9 +1,12 @@
 # 対話システム実装備忘録_mishina
 コードの内容を説明するためのものではあんまりない
 
-http://localhost:5001 
-
-python web_app.pyを実行
+始め方
+# 仮想環境を有効化
+source venv/bin/activate
+# Webアプリを起動
+python web_app.py
+# ブラウザで http://localhost:5001 にアクセス
 
 今後やること  
 - 音声認識と統合させた時のおおまかな流れを理解する
