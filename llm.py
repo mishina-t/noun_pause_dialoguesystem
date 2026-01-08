@@ -32,7 +32,7 @@ class OpenAILLM:
             self.model = model or Config.OPENAI_MODEL
     
     
-    def respond(self, user_text: str, system_prompt: str = None) -> tuple[str, float]:
+    def respond(self, user_text: str) -> tuple[str, float]:
         """
         ユーザーのテキストに対して応答を生成
         API呼び出しからの文章生成を行う
@@ -50,8 +50,6 @@ class OpenAILLM:
         start_time = time.time()
         
         messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
         # ユーザーの入力を追加
         # contentのところに入力が格納される
         messages.append({"role": "user", "content": user_text})
