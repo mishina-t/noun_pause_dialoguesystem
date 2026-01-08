@@ -119,7 +119,7 @@ def respond(self, user_text: str) -> tuple[str, float]:
 # 句読点挿入のロジック
 ---
 
-秒数指定でポーズを開けるのは分からなかった
+秒数指定でポーズを開けるのは分からなかった  
 名詞を抽出してその前に句点を入れた
 
 全体像
@@ -147,6 +147,15 @@ def __init__(self, pause_marker: str = "、", max_pauses_per_sentence: int = 3):
 	- 今後の手法検討も兼ねて再実装したい
 - pause_markerを __ init __ でデフォルト引数で読点として指定 & 一文のmax読点数も指定 → `_process_sentence`関数で呼び出している
 - 名詞が連続しているところに過度にポーズが入らないよう、この関数で`last_was_noun`で防いでいる
+
+
+```python
+if is_noun and not last_was_noun and pause_count < self.max_pauses_per_sentence:
+    if result:               # 先頭なら入れない
+        result.append(self.pause_marker)
+        pause_count += 1
+    last_was_noun = True
+```
 
 ```text
 前が名詞だったか = False
