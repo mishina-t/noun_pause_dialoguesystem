@@ -1,5 +1,5 @@
 # 対話システム実装備忘録_mishina
-コードの内容を説明するためのものではあんまりない
+
 
 始め方
 ```
@@ -84,7 +84,7 @@ def respond(self, user_text: str) -> tuple[str, float]:
 ```
 
 `response = self.client.chat.completions.create(...)`
-でAPI呼び出しが大事らしい
+でAPI呼び出し
 
 ポイント(llm.py)
 - 
