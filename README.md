@@ -1,5 +1,7 @@
 # 対話システム実装備忘録_mishina
 
+日本語のアクセント句は名詞から始まることが多く、そこで微細なポーズを入れることで、機械的な一本調子の読み上げを防ぎ、聞き手が情報を処理する時間を確保できると考えた。特に技術的な説明など、情報量が多い発話で効果的だという仮説。
+
 
 始め方
 ```
@@ -37,13 +39,16 @@ python web_app.py
 4. tts.py - voicevoxを用いた音声合成
 5. config.py - 設定管理
 6. .env - 環境変数(APIキーなど)
-7. ui.py - UI表示(AI全任せ)
+7. ui.py - UI表示
 
-前提
-- UI関連(HTML)はAIに任せたので理解できていない、今後改善したい
-- 型を作ってみてそれをAIに繋げてもらったイメージ
-- コピペばかりなので出典を整理して、それぞれ理解する
-- CSは初学者のため何で動いているか、安全かどうかは無視している(勉強中)
+技術スタック (Tech Stack)
+- Core: Python 3.10+
+- LLM: OpenAI API / Azure OpenAI Service
+- TTS Engine: VOICEVOX (Local Server)
+- NLP / Morphology: Janome
+- Web Framework: Flask
+- Audio Processing: Pydub
+
 
 
 # API呼び出しから文章生成
@@ -84,7 +89,7 @@ def respond(self, user_text: str) -> tuple[str, float]:
 ```
 
 `response = self.client.chat.completions.create(...)`
-でAPI呼び出し
+API呼び出し
 
 ポイント(llm.py)
 - 
@@ -112,7 +117,7 @@ def respond(self, user_text: str) -> tuple[str, float]:
 - [Whisper API, ChatGPT API, VOICEVOXを使ってAIと会話する](https://zenn.dev/umyomyomyon/articles/5f07abe67a289b)
 	- わかりやすい
 - [APIの詳しい仕様](https://platform.openai.com/docs/guides/text)
-	- いずれちゃんと読んだ方がいいかも
+
 
 
 
@@ -174,8 +179,6 @@ if is_noun and not last_was_noun and pause_count < self.max_pauses_per_sentence:
 
 # 疑問
 ---
-- 実行環境とは
-- pydubのエラーがたくさん出た、足りないライブラリをインストールしても解決しないことがあった
-- APIは無料だからAzure OpenAIを使ったが、他にいいものはあるか
+- API:Azure OpenAIを使ったが、他にいいものはあるか
 - <評価について>
-評価問題に落とし込んだほうがいいのか。心地よさとか使いやすさはある種ブラックボックスであって、逆に数式化に走りすぎるとノイズ、再現性に弱くなりそうだし、論文としても弱くなる気がする。だから、使ってみての評価問題にして、「プロンプト入れて良くなった！」で終わりじゃなくて、性能が下がることもある→その理由分析→再実験みたいな流れにしたい。ブラックボックスを明らかにしたいと思ってたけど、ブラックボックスは前提としてその中で最適化したり指標を定義したりするのもいいのではないかと思った。
+評価問題に落とし込んだほうがいいのか。心地よさとか使いやすさはある種ブラックボックスであって、逆に数式化に走りすぎるとノイズ、再現性に弱くなりそうだし、論文としても弱くなる気がする。だから、使ってみての評価問題にして、「プロンプト入れて良くなった」で終わりじゃなくて、性能が下がることもある→その理由分析→再実験みたいな流れにしたい。ブラックボックスを明らかにしたいと思ってたけど、ブラックボックスは前提としてその中で最適化したり指標を定義したりするのもいいのではないかと思った。
